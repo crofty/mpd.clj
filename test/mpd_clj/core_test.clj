@@ -19,13 +19,12 @@ with the response that should be tested."
 
 ;; utils tests
 
-(comment "this is an integration test"
-         (deftest client-test
-           (let [c @(u/client mpd-server)
-                 req @(s/put! c "status")
-                 res @(s/take! c)]
-             (testing "client gets a valid response"
-               (is (= (re-find #"OK MPD" res) "OK MPD"))))))
+(deftest client-test
+  (let [c @(u/client mpd-server)
+        req @(s/put! c "status")
+        res @(s/take! c)]
+    (testing "client gets a valid response"
+      (is (= (re-find #"OK MPD" res) "OK MPD")))))
 
 (deftest send-cmd-map-test
   (let [client (client-with-response ["OK MPD ..." "a: 1" "b: 2" "OK"])
